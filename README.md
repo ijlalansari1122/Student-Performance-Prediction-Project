@@ -1,4 +1,3 @@
-# Student-Performance-Prediction-Project
 # Student Performance Prediction Project
 
 ## 📚 Overview
