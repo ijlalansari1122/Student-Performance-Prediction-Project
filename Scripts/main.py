@@ -1,14 +1,24 @@
-from data_preprocessing import preprocess_data
-from model_training import train_and_evaluate_model
+from preprocess_data import preprocess_data
+from train_evaluate_model import train_and_evaluate_model_with_hyperparameter_tuning
+from eda_analysis import perform_eda
+from eng_feat import feature_engineering_pipeline
 
-# File path to the CSV file
-data_path = r'C:\Users\poono\Desktop\New folder (4)\Student-Performance-Prediction-Project\data\student-scores.csv'
+# File paths
+raw_data_path = r'data/student-scores.csv'
+preprocessed_data_path = r'data/preprocessed_data.csv'
+model_results_path = r'data/model_results.csv'
 
-# Call the preprocessing function
-df_processed = preprocess_data(data_path)
+# Step 1: Data Preprocessing
+df_processed = preprocess_data(raw_data_path, preprocessed_data_path)
+
+# Step 2: Feature Engineering
+df_engineered = feature_engineering_pipeline(preprocessed_data_path)
 
 # Define the target column (choose based on your needs)
 target_column = 'combined_score'  # Or use a specific score like 'math_score'
 
-# Call the model training and evaluation function
-train_and_evaluate_model(df_processed, target_column)
+# Step 3: Model Training and Hyperparameter Tuning
+train_and_evaluate_model_with_hyperparameter_tuning(df_engineered, target_column, model_results_path)
+
+# Step 4: Exploratory Data Analysis
+perform_eda(model_results_path)
